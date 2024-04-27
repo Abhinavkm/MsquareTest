@@ -4,11 +4,8 @@
     <title>Google Maps with Multiple Markers, Notes, and Boundaries</title>
     <style>
         #map {
-            height: 100%; /* Set the height to 100% to fill the parent container */
+            height: 520px; /* Updated height to 450px */
             width: 100%;
-        }
-        .map-container {
-            height: 520px; /* Set initial height for the container */
         }
         .marker-label {
             color: white;
@@ -23,14 +20,11 @@
     </style>
 </head>
 <body>
-    <div class="map-container"> <!-- Add a container for the map -->
-        <div id="map"></div> <!-- Move the map inside the container -->
-    </div>
+    <div id="map"></div>
     <script>
         function initMap() {
-            var mapContainer = document.querySelector('.map-container'); // Get the map container element
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 20,
+                zoom: 10,
                 center: {lat: 44.6794, lng: -79.4272}, // Centered at a common point
                 mapTypeId: 'satellite' // Set map type to satellite view
             });
@@ -38,13 +32,7 @@
             // Add listener for map loaded event
             google.maps.event.addListenerOnce(map, 'idle', function() {
                 console.log('Map loaded');
-                adjustMapHeight(); // Adjust map height once the map is loaded
             });
-
-            function adjustMapHeight() {
-                var mapHeight = map.getDiv().offsetHeight; // Get the height of the map
-                mapContainer.style.height = mapHeight + 'px'; // Set the height of the container to match the map
-            }
 
             // Send POST request to webhook endpoint
             fetch('https://hook.eu1.make.com/gx121uuwuha3bl6etkijrsbme75qf577', {
@@ -187,6 +175,16 @@
                     { lat: 44.679878, lng: -79.261234 },
                     { lat: 44.676865, lng: -79.259864 },
                     { lat: 44.677972, lng: -79.255028 }
+                ];
+
+                // Combine all boundary coordinates
+                var allBoundaryCoords = [
+                    boundaryCoords1,
+                    boundaryCoords2,
+                    boundaryCoords3,
+                    boundaryCoords4,
+                    boundaryCoords5,
+                    boundaryCoords6
                 ];
 
                 // Calculate bounds for all boundary coordinates
